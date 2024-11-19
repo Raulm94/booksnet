@@ -4,7 +4,7 @@ import helmet from 'helmet';
 import bodyParser from 'body-parser';
 
 import authRoutes from './routes/auth.routes';
-//import userRoutes from './routes/user.routes';
+import clubRoutes from './routes/club.routes';
 
 const app = express();
 
@@ -17,6 +17,6 @@ app.use(bodyParser.json());
 
 // Rutas
 app.use('/api/auth', authRoutes);
-//app.use('/api/users', userRoutes);
+app.use('/api/club', clubRoutes);
 
 export default app;

@@ -28,8 +28,10 @@ const login = async (req, res) => {
             return;
         }
         const isMatch = await bcryptjs_1.default.compare(password, user.password);
-        if (!isMatch)
+        if (!isMatch) {
             res.status(401).json({ message: 'Invalid credentials' });
+            return;
+        }
         const token = jsonwebtoken_1.default.sign({ userId: user.appuser_id }, process.env.JWT_SECRET, { expiresIn: '1h' });
         res.status(200).json({ token });
     }

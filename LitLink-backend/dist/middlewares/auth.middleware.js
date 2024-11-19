@@ -14,11 +14,8 @@ const authenticateToken = (req, res, next) => {
         return; // Se finaliza aquí la función para evitar llamar a next()
     }
     try {
-        const decoded = jsonwebtoken_1.default.verify(token, JWT_SECRET);
-        req.user = {
-            id: decoded.id,
-            email: decoded.email,
-        };
+        const decoded1 = jsonwebtoken_1.default.verify(token, JWT_SECRET);
+        req.user = decoded1; // Aquí agregas la propiedad user
         next(); // Continua hacia el siguiente middleware
     }
     catch (error) {
