@@ -9,8 +9,8 @@ const role_model_1 = __importDefault(require("../models/role.model"));
 const createClub = async (req, res) => {
     try {
         const { title, description, location } = req.body;
-        const userId = req.user?.id;
-        const email = req.user?.email;
+        const userId = 123; //req.user?.id;
+        const email = 'testuser@example.com'; //req.user?.email;
         if (!userId) {
             res.status(401).json({ message: 'Unauthorized' });
             return;
@@ -23,7 +23,7 @@ const createClub = async (req, res) => {
             title,
             description,
             location,
-            created_by: email || 'system',
+            created_by: userId || 0,
         });
         // Asignar el rol de administrador al creador del club
         const adminRole = await role_model_1.default.findOne({ where: { name: 'ClubAdministrator' } });
@@ -49,8 +49,9 @@ const createClub = async (req, res) => {
 const joinClub = async (req, res) => {
     try {
         const { clubId } = req.body;
-        const userId = req.user?.id;
-        const email = req.user?.email;
+        const userId = ''; //;req.user?.id;
+        const email = ''; //req.user?.email;
+        console.log(req);
         if (!userId) {
             res.status(401).json({ message: 'Unauthorized' });
             return;

@@ -26,7 +26,7 @@ Club.init({
         type: sequelize_1.DataTypes.STRING,
     },
     created_by: {
-        type: sequelize_1.DataTypes.STRING,
+        type: sequelize_1.DataTypes.NUMBER,
         allowNull: true,
     },
 }, {

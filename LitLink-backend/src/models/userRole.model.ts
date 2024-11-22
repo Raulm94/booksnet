@@ -28,6 +28,7 @@ UserRole.init(
             type: DataTypes.INTEGER,
             allowNull: false,
             unique: false,
+            field: 'appuser_id'
         },
         role_id: {
             type: DataTypes.INTEGER,

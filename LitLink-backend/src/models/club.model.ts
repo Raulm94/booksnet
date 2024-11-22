@@ -6,7 +6,7 @@ interface ClubAttributes {
     title: string;
     description: string;
     location: string;
-    created_by: string;
+    created_by: number;
 }
 
 interface AppUserCreationAttributes extends Optional<ClubAttributes, 'club_id'> { }
@@ -16,7 +16,7 @@ class Club extends Model<ClubAttributes, AppUserCreationAttributes> implements C
     public title!: string;
     public description!: string;
     public location!: string;
-    public created_by!: string;
+    public created_by!: number;
 }
 
 Club.init(
@@ -39,7 +39,7 @@ Club.init(
             type: DataTypes.STRING,
         },
         created_by: {
-            type: DataTypes.STRING,
+            type: DataTypes.NUMBER,
             allowNull: true,
         },
 

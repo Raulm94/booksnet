@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 
 import authRoutes from './routes/auth.routes';
 import clubRoutes from './routes/club.routes';
+// import './types/express';
 
 const app = express();
 

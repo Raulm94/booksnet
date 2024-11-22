@@ -9,6 +9,7 @@ const helmet_1 = __importDefault(require("helmet"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const auth_routes_1 = __importDefault(require("./routes/auth.routes"));
 const club_routes_1 = __importDefault(require("./routes/club.routes"));
+// import './types/express';
 const app = (0, express_1.default)();
 // Middlewares de seguridad
 app.use((0, cors_1.default)());

@@ -2,35 +2,42 @@ import Club from '../models/club.model';
 import UserRole from '../models/userRole.model';
 import Role from '../models/role.model';
 import { Request, Response } from 'express';
+import { Transaction } from 'sequelize';
 
 const createClub = async (req: Request, res: Response) => {
 
+    const transaction: Transaction = await Club.sequelize!.transaction();
+
     try {
         const { title, description, location } = req.body;
-        const userId = req.user?.id;
-        const email = req.user?.email;
+        const userId = 1; //req.user?.id;
+        const email = 'testuser@example.com'; //req.user?.email;
 
         if (!userId) {
+            await transaction.rollback();
             res.status(401).json({ message: 'Unauthorized' });
             return;
         }
 
         if (!title || !description) {
+            await transaction.rollback();
             res.status(400).json({ message: 'Title and description are required' });
             return;
         }
+
 
         const newClub = await Club.create({
             title,
             description,
             location,
-            created_by: email || 'system',
-        });
+            created_by: userId || 0,
+        }, { transaction });
 
         // Asignar el rol de administrador al creador del club
         const adminRole = await Role.findOne({ where: { name: 'ClubAdministrator' } });
 
         if (!adminRole) {
+            await transaction.rollback();
             res.status(500).json({ message: 'ClubAdministrator role not found' });
             return;
         }
@@ -39,13 +46,16 @@ const createClub = async (req: Request, res: Response) => {
             role_id: adminRole.role_id,
             club_id: newClub.club_id,
             appUser_id: userId
-        });
+        }, { transaction });
+
+        await transaction.commit();
 
         res.status(201).json({
             message: 'Club created successfully',
             club: newClub,
         });
     } catch (error) {
+        await transaction.rollback();
         console.error(error);
         res.status(500).json({ message: 'Server error' });
     }
@@ -54,9 +64,9 @@ const createClub = async (req: Request, res: Response) => {
 const joinClub = async (req: Request, res: Response) => {
     try {
         const { clubId } = req.body;
-        const userId = req.user?.id;
-        const email = req.user?.email;
-
+        const userId = ''//;req.user?.id;
+        const email = '';//req.user?.email;
+        console.log(req);
         if (!userId) {
             res.status(401).json({ message: 'Unauthorized' });
             return;
